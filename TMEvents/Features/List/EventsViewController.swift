@@ -32,6 +32,8 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
         
         self.tableView.tableFooterView = UIView()
         
+        self.tableView.separatorStyle = .none
+        
         self.viewModel.delegate = self
     }
     
@@ -68,11 +70,11 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110.0
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110.0
+        return 120.0
     }
     
     // MARK: - EventsViewControllerDelegate

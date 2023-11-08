@@ -11,18 +11,41 @@ class EventCell: UITableViewCell {
     
     private lazy var baseView: UIView = {
         let view = UIView()
-        view.backgroundColor = self.isSelected ? .systemBackground : .secondarySystemBackground
+        view.backgroundColor = isSelected ? .systemBackground : .secondarySystemBackground
         view.layer.cornerRadius = 8.0
         view.layer.masksToBounds = true
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4.0
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private let eventImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        return imageView
+    }()
+    
+    private let labelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        return stackView
     }()
     
     private lazy var eventTitle: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
-        label.textColor = self.isSelected ? .darkText : .label
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .label
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         return label
     }()
     
@@ -30,8 +53,9 @@ class EventCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
-        label.textColor = self.isSelected ? .darkText : .label
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         return label
     }()
     
@@ -39,8 +63,9 @@ class EventCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.numberOfLines = 0
-        label.textColor = self.isSelected ? .darkText : .label
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         return label
     }()
     
@@ -48,12 +73,11 @@ class EventCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
         label.numberOfLines = 0
-        label.textColor = self.isSelected ? .darkText : .label
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         return label
     }()
-    
-    let eventImageView = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,33 +97,33 @@ class EventCell: UITableViewCell {
     }
     
     private func setupUI() {
-        eventImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(eventImageView)
-        eventImageView.contentMode = .scaleAspectFit
+        selectionStyle = .none
         
         for label in [eventTitle, eventDate, eventVenue, eventVenueLocation] {
-            label.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(label)
-            label.numberOfLines = 0
+            labelsStackView.addArrangedSubview(label)
         }
         
+        baseView.addSubview(eventImageView)
+        baseView.addSubview(labelsStackView)
+        
+        contentView.addSubview(baseView)
+        
         NSLayoutConstraint.activate([
-            eventImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            eventImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            eventImageView.widthAnchor.constraint(equalToConstant: 100),
-            eventImageView.heightAnchor.constraint(equalToConstant: 100),
+            baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
             
-            eventTitle.leadingAnchor.constraint(equalTo: eventImageView.trailingAnchor, constant: 16),
-            eventTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            eventImageView.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 8),
+            eventImageView.topAnchor.constraint(greaterThanOrEqualTo: baseView.topAnchor, constant: 8),
+            eventImageView.bottomAnchor.constraint(lessThanOrEqualTo: baseView.bottomAnchor, constant: -8),
+            eventImageView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor),
             
-            eventDate.leadingAnchor.constraint(equalTo: eventTitle.leadingAnchor),
-            eventDate.topAnchor.constraint(equalTo: eventTitle.bottomAnchor, constant: 8),
-            
-            eventVenue.leadingAnchor.constraint(equalTo: eventTitle.leadingAnchor),
-            eventVenue.topAnchor.constraint(equalTo: eventDate.bottomAnchor, constant: 8),
-            
-            eventVenueLocation.leadingAnchor.constraint(equalTo: eventTitle.leadingAnchor),
-            eventVenueLocation.topAnchor.constraint(equalTo: eventVenue.bottomAnchor, constant: 8),
+            labelsStackView.leadingAnchor.constraint(equalTo: eventImageView.trailingAnchor, constant: 8),
+            labelsStackView.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -8),
+            labelsStackView.topAnchor.constraint(greaterThanOrEqualTo: baseView.topAnchor, constant: 8),
+            labelsStackView.bottomAnchor.constraint(lessThanOrEqualTo: baseView.bottomAnchor, constant: -8),
+            labelsStackView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor),
         ])
     }
 }
