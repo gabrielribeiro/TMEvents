@@ -16,6 +16,8 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Event info"
+        
         viewModel.delegate = self
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
@@ -23,8 +25,6 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     }
     
     func configure(for event: Event) {
-        title = event.name
-        
         viewModel.setData(for: event)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
