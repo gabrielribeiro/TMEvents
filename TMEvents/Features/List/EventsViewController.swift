@@ -50,12 +50,17 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
         tableView.register(EventCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        
+        tableView.accessibilityIdentifier = "EventsTableView"
     }
     
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search events"
+        searchController.searchBar.accessibilityIdentifier = "EventsSearchField"
+        searchController.searchBar.accessibilityTraits = .searchField
+        searchController.searchBar.isAccessibilityElement = true
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -95,6 +100,8 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath) as! EventCell
         
         cell.configure(for: event, isFavorite: viewModel.isEventFavorited(event))
+        
+        cell.accessibilityIdentifier = "Table_Event_Row_\(indexPath.row)"
         
         return cell
     }

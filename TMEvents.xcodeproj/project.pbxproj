@@ -87,6 +87,7 @@
 		79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModelTests.swift; sourceTree = "<group>"; };
 		79FD357E2AFC37A000B5683A /* EventsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewControllerTests.swift; sourceTree = "<group>"; };
 		79FD35802AFC3B2200B5683A /* FavoritesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepositoryTests.swift; sourceTree = "<group>"; };
+		79FD35822AFC3D9C00B5683A /* TMEvents.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TMEvents.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +118,7 @@
 		793DD6DA2AFB22D300FEDB16 = {
 			isa = PBXGroup;
 			children = (
+				79FD35822AFC3D9C00B5683A /* TMEvents.xctestplan */,
 				793DD6E52AFB22D300FEDB16 /* TMEvents */,
 				793DD6FF2AFB22D400FEDB16 /* TMEventsTests */,
 				793DD7092AFB22D400FEDB16 /* TMEventsUITests */,

@@ -20,3 +20,5 @@ struct TMResponse<T: Codable>: Codable {
 struct EventsResponse: Codable {
     let events: [Event]
 }
+
+typealias GetEventsResponse = TMResponse<EventsResponse>

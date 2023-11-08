@@ -43,6 +43,7 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
             target: self,
             action: #selector(toggleFavoriteButtonTapped)
         )
+        navigationItem.rightBarButtonItem?.accessibilityIdentifier = "Favorite_Button"
     }
     
     @objc func toggleFavoriteButtonTapped() {

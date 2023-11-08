@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "3C8EC814-29FF-4990-B247-CF92962ED5C7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:TMEvents.xcodeproj",
+      "identifier" : "793DD6E22AFB22D300FEDB16",
+      "name" : "TMEvents"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TMEvents.xcodeproj",
+        "identifier" : "793DD6FB2AFB22D400FEDB16",
+        "name" : "TMEventsTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TMEvents.xcodeproj",
+        "identifier" : "793DD7052AFB22D400FEDB16",
+        "name" : "TMEventsUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

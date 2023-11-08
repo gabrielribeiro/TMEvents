@@ -56,6 +56,7 @@ class EventCell: UITableViewCell {
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventTitleLabelIdentifier"
         return label
     }()
     
@@ -66,6 +67,7 @@ class EventCell: UITableViewCell {
         label.textColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventDateLabelIdentifier"
         return label
     }()
     
@@ -76,6 +78,7 @@ class EventCell: UITableViewCell {
         label.textColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventVenueLabelIdentifier"
         return label
     }()
     
@@ -86,6 +89,7 @@ class EventCell: UITableViewCell {
         label.textColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventLocationLabelIdentifier"
         return label
     }()
     
@@ -105,7 +109,7 @@ class EventCell: UITableViewCell {
         eventVenue.text = event.venueName
         eventVenueLocation.text = event.location
         
-        let sizeClass = UIScreen.main.traitCollection.horizontalSizeClass
+        let sizeClass = self.traitCollection.horizontalSizeClass
         
         if let bestImage = event.getBestImage(for: sizeClass, preferredRatio: .the3_2),
            let url = URL(string: bestImage.url) {

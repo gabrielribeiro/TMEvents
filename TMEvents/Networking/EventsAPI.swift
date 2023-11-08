@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias GetEventsResponse = TMResponse<EventsResponse>
-
 class EventsAPI {
     
     // TODO: Move to On Demand Resources or any other safe place before go live
