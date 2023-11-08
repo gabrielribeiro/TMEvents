@@ -16,6 +16,11 @@
 		793DD70B2AFB22D400FEDB16 /* TMEventsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD70A2AFB22D400FEDB16 /* TMEventsUITests.swift */; };
 		793DD70D2AFB22D400FEDB16 /* TMEventsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD70C2AFB22D400FEDB16 /* TMEventsUITestsLaunchTests.swift */; };
 		793DD71F2AFB283000FEDB16 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD71E2AFB283000FEDB16 /* EventsViewController.swift */; };
+		793DD7212AFB29C000FEDB16 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7202AFB29C000FEDB16 /* AppCoordinator.swift */; };
+		793DD7272AFB2E8600FEDB16 /* TMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7262AFB2E8600FEDB16 /* TMResponse.swift */; };
+		793DD72A2AFB32DB00FEDB16 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7292AFB32DB00FEDB16 /* NetworkService.swift */; };
+		793DD72C2AFB344400FEDB16 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD72B2AFB344400FEDB16 /* APIClient.swift */; };
+		793DD72E2AFB35EA00FEDB16 /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		793DD70A2AFB22D400FEDB16 /* TMEventsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMEventsUITests.swift; sourceTree = "<group>"; };
 		793DD70C2AFB22D400FEDB16 /* TMEventsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMEventsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		793DD71E2AFB283000FEDB16 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		793DD7202AFB29C000FEDB16 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		793DD7262AFB2E8600FEDB16 /* TMResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMResponse.swift; sourceTree = "<group>"; };
+		793DD7292AFB32DB00FEDB16 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		793DD72B2AFB344400FEDB16 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +111,9 @@
 			children = (
 				793DD71A2AFB26AF00FEDB16 /* Application */,
 				793DD71C2AFB281500FEDB16 /* Features */,
-				793DD71B2AFB26C200FEDB16 /* Resources */,
+				793DD7282AFB32C400FEDB16 /* Networking */,
 				793DD7192AFB269600FEDB16 /* Data */,
+				793DD71B2AFB26C200FEDB16 /* Resources */,
 			);
 			path = TMEvents;
 			sourceTree = "<group>";
@@ -127,6 +138,7 @@
 		793DD7192AFB269600FEDB16 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				793DD7262AFB2E8600FEDB16 /* TMResponse.swift */,
 				793DD6EF2AFB22D300FEDB16 /* TMEvents.xcdatamodeld */,
 			);
 			path = Data;
@@ -137,6 +149,7 @@
 			children = (
 				793DD6E62AFB22D300FEDB16 /* AppDelegate.swift */,
 				793DD6E82AFB22D300FEDB16 /* SceneDelegate.swift */,
+				793DD7202AFB29C000FEDB16 /* AppCoordinator.swift */,
 				793DD6F72AFB22D400FEDB16 /* Info.plist */,
 			);
 			path = Application;
@@ -163,8 +176,18 @@
 			isa = PBXGroup;
 			children = (
 				793DD71E2AFB283000FEDB16 /* EventsViewController.swift */,
+				793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		793DD7282AFB32C400FEDB16 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				793DD7292AFB32DB00FEDB16 /* NetworkService.swift */,
+				793DD72B2AFB344400FEDB16 /* APIClient.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,8 +322,13 @@
 			files = (
 				793DD6E72AFB22D300FEDB16 /* AppDelegate.swift in Sources */,
 				793DD71F2AFB283000FEDB16 /* EventsViewController.swift in Sources */,
+				793DD7212AFB29C000FEDB16 /* AppCoordinator.swift in Sources */,
+				793DD72C2AFB344400FEDB16 /* APIClient.swift in Sources */,
 				793DD6E92AFB22D300FEDB16 /* SceneDelegate.swift in Sources */,
+				793DD7272AFB2E8600FEDB16 /* TMResponse.swift in Sources */,
+				793DD72E2AFB35EA00FEDB16 /* EventsViewModel.swift in Sources */,
 				793DD6F12AFB22D300FEDB16 /* TMEvents.xcdatamodeld in Sources */,
+				793DD72A2AFB32DB00FEDB16 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

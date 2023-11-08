@@ -7,83 +7,117 @@
 
 import UIKit
 
-class EventsViewController: UITableViewController {
+class EventsViewController: UITableViewController, EventsViewControllerDelegate {
+    
+    private let viewModel = EventsViewModel()
+    
+    private var loadingAlertViewController: UIAlertController?
+    
+    private static let reuseIdentifier = "reuseIdentifier"
 
+    convenience init() {
+        self.init(style: .plain)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.title = "Simple TM Events List"
+        
+        self.clearsSelectionOnViewWillAppear = true
+        
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
+        
+        self.tableView.tableFooterView = UIView()
+        
+        self.viewModel.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.fetchData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return viewModel.events.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let event = viewModel.events[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = event.name
 
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let event = viewModel.events[indexPath.row]
+        
+        debugPrint(event)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // MARK: - EventsViewControllerDelegate
+    
+    func didFail(with error: Error?) {
+        let alertViewController = UIAlertController(
+            title: "Attention!",
+            message: error?.localizedDescription ?? "An unexpected error occured.",
+            preferredStyle: .alert
+        )
+        
+        alertViewController.addAction(
+            UIAlertAction(
+                title: "OK",
+                style: .default
+            )
+        )
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertViewController, animated: true)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func didFetchWithSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
-    */
+    
+    func loadingDidChange(loading: Bool) {
+        guard loading else {
+            DispatchQueue.main.async {
+                self.loadingAlertViewController?.dismiss(animated: false)
+            }
+            
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            let loadingAlertViewController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.medium
+            loadingIndicator.startAnimating();
+
+            loadingAlertViewController.view.addSubview(loadingIndicator)
+            
+            strongSelf.present(loadingAlertViewController, animated: false, completion: nil)
+            
+            strongSelf.loadingAlertViewController = loadingAlertViewController
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
