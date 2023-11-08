@@ -2,6 +2,26 @@
 
 TMEvents is an iOS application that interfaces with the Ticketmaster API to provide users with a simple and easy way to discover events. It allows users to browse, search, and favorite events.
 
+## TODO
+
+- [x] Architecture
+- [x] Requests and Decoding
+- [x] Listing
+- [x] Detail
+- [x] Search
+- [x] Pagination
+- [x] Error handling
+- [x] Dependency Injection
+- [x] CoreData
+- [x] Networking Unit Tests
+- [x] ViewModels Unit Tests
+- [x] ViewControllers Unit Tests
+- [ ] Models Unit Tests
+- [x] Repository Unit Tests
+- [x] UI Tests
+- [ ] Localization
+- [x] README
+
 ## Features
 
 - **Browse Events**: View a list of events sourced from the Ticketmaster API with infinite scrolling.
@@ -48,28 +68,7 @@ The project includes unit tests for Networking, ViewModels, ViewControllers, and
 
 The project setup is straightforward, with no external dependencies, making it easy to build. Just clone, open, build & run!
 
-
 ## Images
 
 ![Listing](Images/1.png "Listing") ![Search](Images/2.png "Search") ![Detail](Images/3.png "Detail") 
-![Loading](Images/0.png "Loading") ![Empty results](Images/4.png "Empty results") ![Poor connectivity](Images/5.png "Poor connectivity")
-
-## TODO
-
-- [x] Architecture
-- [x] Requests and Decoding
-- [x] Listing
-- [x] Detail
-- [x] Search
-- [x] Pagination
-- [x] Error handling
-- [x] Dependency Injection
-- [x] CoreData
-- [x] Networking Unit Tests
-- [x] ViewModels Unit Tests
-- [x] ViewControllers Unit Tests
-- [] Models Unit Tests
-- [x] Repository Unit Tests
-- [x] UI Tests
-- [] Localization
-- [x] README
+![Loading](Images/4.png "Loading") ![Empty results](Images/5.png "Empty results") ![Poor connectivity](Images/6.png "Poor connectivity")
