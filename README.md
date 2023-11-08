@@ -2,6 +2,18 @@
 
 TMEvents is an iOS application that interfaces with the Ticketmaster API to provide users with a simple and easy way to discover events. It allows users to browse, search, and favorite events.
 
+## Table of Contents
+1. [TMEvents](#tmevents)
+2. [TODO](#todo)
+3. [Features](#features)
+4. [UI](#ui)
+5. [Architecture](#architecture)
+    - [Key Components](#key-components)
+    - [Design Patterns and Best Practices](#design-patterns-and-best-practices)
+6. [Testing and Code Coverage](#testing-and-code-coverage)
+7. [Setup](#setup)
+8. [Screenshots](#screenshots)
+
 ## TODO
 
 - [x] Architecture
@@ -68,7 +80,15 @@ The project includes unit tests for Networking, ViewModels, ViewControllers, and
 
 The project setup is straightforward, with no external dependencies, making it easy to build. Just clone, open, build & run!
 
-## Images
+## Screenshots
 
-![Listing](Images/1.png "Listing") ![Search](Images/2.png "Search") ![Detail](Images/3.png "Detail") 
-![Loading](Images/4.png "Loading") ![Empty results](Images/5.png "Empty results") ![Poor connectivity](Images/6.png "Poor connectivity")
+<p align="center">
+  <img src="Images/1.png" alt="Listing" title="Listing" width="200"/>
+  <img src="Images/2.png" alt="Search" title="Search" width="200"/>
+  <img src="Images/3.png" alt="Detail" title="Detail" width="200"/>
+</p>
+<p align="center">
+  <img src="Images/4.png" alt="Loading" title="Loading" width="200"/>
+  <img src="Images/5.png" alt="Empty results" title="Empty results" width="200"/>
+  <img src="Images/6.png" alt="Poor connectivity" title="Poor connectivity" width="200"/>
+</p>
