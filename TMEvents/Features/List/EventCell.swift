@@ -148,10 +148,12 @@ class EventCell: UITableViewCell {
 }
 
 extension Event {
-    var formattedDate: String {
+    var formattedDate: String? {
+        guard let dateTime = self.dates.start.dateTime else { return nil }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM dd"
-        return formatter.string(from: self.dates.start.dateTime).uppercased()
+        return formatter.string(from: dateTime).uppercased()
     }
     
     var venueName: String? {

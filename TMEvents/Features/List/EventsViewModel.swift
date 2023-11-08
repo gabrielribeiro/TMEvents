@@ -36,6 +36,8 @@ class EventsViewModel {
         
         delegate?.loadingDidChange(loading: true)
         
+        let newSearch = self.searchText != searchText
+        
         self.searchText = searchText
         
         do {
@@ -46,7 +48,7 @@ class EventsViewModel {
                 
                 strongSelf.page = eventsResponse.page
                 
-                if strongSelf.page?.number == 0 {
+                if strongSelf.page?.number == 0 || newSearch {
                     strongSelf.events = eventsResponse.embedded?.events ?? []
                 } else {
                     strongSelf.events.append(contentsOf: (eventsResponse.embedded?.events ?? []))

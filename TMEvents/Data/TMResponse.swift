@@ -39,8 +39,7 @@ struct Dates: Codable {
 }
 
 struct StartDate: Codable {
-    let localDate, localTime: String
-    let dateTime: Date
+    let dateTime: Date?
 }
 
 struct EventImage: Codable {

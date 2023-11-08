@@ -41,9 +41,12 @@ class EventDetailViewModel {
     
     func setData(for event: Event) {
         items = [
-            .init(value: event.name, rowType: .name),
-            .init(value: event.formattedDate, rowType: .date)
+            .init(value: event.name, rowType: .name)
         ]
+        
+        if let formattedDate = event.formattedDate {
+            items.append(.init(value: formattedDate, rowType: .date))
+        }
         
         if let venueName = event.venueName {
             items.append(.init(value: venueName, rowType: .venue))
