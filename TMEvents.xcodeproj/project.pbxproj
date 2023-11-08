@@ -75,6 +75,7 @@
 		793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
 		793DD7342AFB454000FEDB16 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		7966D4602AFC32620079611C /* EventDetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewControllerTests.swift; sourceTree = "<group>"; };
+		7985218F2AFC54A1007CA15C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		799725422AFC2D1200C64B0F /* EventsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModelTests.swift; sourceTree = "<group>"; };
 		79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPlaceholder.swift; sourceTree = "<group>"; };
 		79C8564A2AFC10750038B252 /* FavoriteEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEvent.swift; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		793DD6DA2AFB22D300FEDB16 = {
 			isa = PBXGroup;
 			children = (
+				7985218F2AFC54A1007CA15C /* README.md */,
 				79FD35822AFC3D9C00B5683A /* TMEvents.xctestplan */,
 				793DD6E52AFB22D300FEDB16 /* TMEvents */,
 				793DD6FF2AFB22D400FEDB16 /* TMEventsTests */,
