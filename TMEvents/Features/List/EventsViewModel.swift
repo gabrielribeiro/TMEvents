@@ -21,6 +21,8 @@ class EventsViewModel {
     private (set) var searchText: String?
     private (set) var page: Page?
     
+    private var isFetchingNextPageData = false
+    
     private let eventsAPI: EventsAPI
     
     private var dataTask: URLSessionDataTask?
@@ -50,6 +52,8 @@ class EventsViewModel {
                     strongSelf.events.append(contentsOf: (eventsResponse.embedded?.events ?? []))
                 }
                 
+                strongSelf.isFetchingNextPageData = false
+                
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
                 strongSelf.delegate?.didFetchWithSuccess()
@@ -58,17 +62,11 @@ class EventsViewModel {
                     return
                 }
                 
+                strongSelf.isFetchingNextPageData = false
+
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
-                if let nsError = error as? NSError {
-                    if nsError.domain == NSURLErrorDomain && nsError.code == -999 {
-                        print("The request was cancelled.")
-                    } else {
-                        strongSelf.delegate?.didFail(with: error)
-                    }
-                } else {
-                    strongSelf.delegate?.didFail(with: error)
-                }
+                strongSelf.delegate?.didFail(with: error)
             }
         } catch {
             delegate?.didFail(with: error)
@@ -76,11 +74,13 @@ class EventsViewModel {
     }
     
     func fetchDataForNextPage() {
-        guard let page = page else { return }
+        guard let page = page, !isFetchingNextPageData else { return }
         
         let nextPageNumber = page.number + 1
         
         if nextPageNumber < page.totalPages {
+            self.isFetchingNextPageData = true
+            
             self.fetchData(
                 searchText: searchText,
                 page: nextPageNumber

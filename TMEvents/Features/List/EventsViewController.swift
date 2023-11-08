@@ -35,7 +35,9 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.fetchData()
+        if viewModel.events.isEmpty {
+            viewModel.fetchData()
+        }
     }
     
     private func setupTableView() {
@@ -136,6 +138,8 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
     func didFail(with error: Error?) {
         if let error = error as? NSError {
             switch error.code {
+            case NSURLErrorCancelled:
+                print("The request was cancelled.")
             case NSURLErrorTimedOut:
                 print("Request timed out. Poor connectivity may be the cause.")
             case NSURLErrorCannotConnectToHost:
