@@ -12,8 +12,8 @@ class EventCell: UITableViewCell {
     private lazy var baseView: UIView = {
         let view = UIView()
         view.backgroundColor = isSelected ? .systemBackground : .secondarySystemBackground
-        view.layer.cornerRadius = 8.0
-        view.layer.masksToBounds = true
+//        view.layer.cornerRadius = 8.0
+        view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.3
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -94,6 +94,25 @@ class EventCell: UITableViewCell {
         eventDate.text = event.formattedDate
         eventVenue.text = event.venueName
         eventVenueLocation.text = event.location
+        
+        let sizeClass = UIScreen.main.traitCollection.horizontalSizeClass
+        
+        if let bestImage = event.getBestImage(for: sizeClass, preferredRatio: .the3_2),
+           let url = URL(string: bestImage.url) {
+            self.loadImageAsync(from: url)
+        } else {
+            self.eventImageView.image = UIImage(systemName: "ticket.fill")
+        }
+    }
+    
+    private func loadImageAsync(from imageURL: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self?.eventImageView.image = image
+                }
+            }
+        }
     }
     
     private func setupUI() {
@@ -111,15 +130,15 @@ class EventCell: UITableViewCell {
         NSLayoutConstraint.activate([
             baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
             eventImageView.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 8),
             eventImageView.topAnchor.constraint(greaterThanOrEqualTo: baseView.topAnchor, constant: 8),
             eventImageView.bottomAnchor.constraint(lessThanOrEqualTo: baseView.bottomAnchor, constant: -8),
             eventImageView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor),
             
-            labelsStackView.leadingAnchor.constraint(equalTo: eventImageView.trailingAnchor, constant: 8),
+            labelsStackView.leadingAnchor.constraint(equalTo: eventImageView.trailingAnchor, constant: 12),
             labelsStackView.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -8),
             labelsStackView.topAnchor.constraint(greaterThanOrEqualTo: baseView.topAnchor, constant: 8),
             labelsStackView.bottomAnchor.constraint(lessThanOrEqualTo: baseView.bottomAnchor, constant: -8),
@@ -149,5 +168,37 @@ extension Event {
         }
         
         return "\(venue.city.name), \(venue.state.stateCode)"
+    }
+    
+    func getBestImage(for sizeClass: UIUserInterfaceSizeClass, preferredRatio: Ratio) -> EventImage? {
+        let filteredImages = images.filter { image in
+            if sizeClass == .regular {
+                return image.url.contains("LANDSCAPE") || image.url.contains("RETINA_LANDSCAPE")
+            } else {
+                return image.url.contains("PORTRAIT") || image.url.contains("RETINA_PORTRAIT")
+            }
+        }
+        
+        // Sort the filtered images by the preferred ratio
+        let sortedImages = filteredImages.sorted { (image1, image2) in
+            let ratio1 = image1.ratio
+            let ratio2 = image2.ratio
+            
+            if ratio1 == preferredRatio && ratio2 != preferredRatio {
+                return true
+            } else if ratio1 != preferredRatio && ratio2 == preferredRatio {
+                return false
+            } else {
+                return image1.width > image2.width
+            }
+        }
+        
+        // Return the URL of the best image (if available)
+        if let bestImage = sortedImages.first {
+            return bestImage
+        } else {
+            // If no images match the preferred criteria, fall back to the first image
+            return images.first
+        }
     }
 }
