@@ -10,32 +10,28 @@ import UIKit
 class AppCoordinator {
     
     let window: UIWindow
-//    let splitViewController: UISplitViewController
+    
+    private var rootViewController: UINavigationController?
     
     init(window: UIWindow) {
         self.window = window
-//        self.splitViewController = UISplitViewController()
-    
-//        configureSplitViewController()
     }
 
     func start() {
         let eventsViewController = EventsViewController()
-//        listViewController.viewModel = listViewModel
-//        listViewController.delegate = self
+        eventsViewController.coordinator = self
+        
+        rootViewController = UINavigationController(rootViewController: eventsViewController)
 
-//        let detailViewController = DetailViewController()
-//        detailViewController.viewModel = detailViewModel
-
-//        splitViewController.viewControllers = [eventsViewController]
-
-        window.rootViewController = UINavigationController(rootViewController: eventsViewController)
+        window.rootViewController = rootViewController!
         window.makeKeyAndVisible()
     }
-
-//    private func configureSplitViewController() {
-//        splitViewController.preferredDisplayMode = .automatic
-//        splitViewController.preferredPrimaryColumnWidthFraction = 0.3
-//        splitViewController.maximumPrimaryColumnWidth = 400
-//    }
+    
+    func pushEvent(_ event: Event) {
+        let detailViewController = EventDetailViewController()
+        
+        detailViewController.configure(for: event)
+        
+        rootViewController?.pushViewController(detailViewController, animated: true)
+    }
 }

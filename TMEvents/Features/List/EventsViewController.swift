@@ -14,6 +14,8 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     private var loadingAlertViewController: UIAlertController?
     
     private static let reuseIdentifier = "reuseIdentifier"
+    
+    var coordinator: AppCoordinator?
 
     convenience init() {
         self.init(style: .plain)
@@ -62,9 +64,7 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let event = viewModel.events[indexPath.row]
         
-        debugPrint(event)
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        coordinator?.pushEvent(event)
     }
     
     // MARK: - EventsViewControllerDelegate
