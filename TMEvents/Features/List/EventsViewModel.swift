@@ -18,6 +18,8 @@ class EventsViewModel {
     weak var delegate: EventsViewControllerDelegate?
     
     private (set) var events: [Event] = []
+    private (set) var searchText: String?
+    private (set) var page: Page?
     
     private let apiClient: APIClient
     
@@ -27,18 +29,26 @@ class EventsViewModel {
         self.apiClient = apiClient
     }
     
-    func fetchData(keyword: String? = nil) {
+    func fetchData(searchText: String? = nil, page: Int = 0) {
         dataTask?.cancel()
         
         delegate?.loadingDidChange(loading: true)
         
+        self.searchText = searchText
+        
         do {
-            self.dataTask = try apiClient.getEvents(keyword: keyword) { [weak self] eventsResponse in
+            self.dataTask = try apiClient.getEvents(keyword: searchText, page: page) { [weak self] eventsResponse in
                 guard let strongSelf = self else {
                     return
                 }
                 
-                strongSelf.events = eventsResponse.embedded?.events ?? []
+                strongSelf.page = eventsResponse.page
+                
+                if strongSelf.page?.number == 0 {
+                    strongSelf.events = eventsResponse.embedded?.events ?? []
+                } else {
+                    strongSelf.events.append(contentsOf: (eventsResponse.embedded?.events ?? []))
+                }
                 
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
@@ -52,7 +62,7 @@ class EventsViewModel {
                 
                 if let nsError = error as? NSError {
                     if nsError.domain == NSURLErrorDomain && nsError.code == -999 {
-                       print("The request was cancelled.")
+                        print("The request was cancelled.")
                     } else {
                         strongSelf.delegate?.didFail(with: error)
                     }
@@ -62,6 +72,19 @@ class EventsViewModel {
             }
         } catch {
             delegate?.didFail(with: error)
+        }
+    }
+    
+    func fetchDataForNextPage() {
+        guard let page = page else { return }
+        
+        let nextPageNumber = page.number + 1
+        
+        if nextPageNumber < page.totalPages {
+            self.fetchData(
+                searchText: searchText,
+                page: nextPageNumber
+            )
         }
     }
 }

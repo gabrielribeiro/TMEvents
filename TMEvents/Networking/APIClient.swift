@@ -31,6 +31,7 @@ class APIClient {
     
     func getEvents(
         keyword: String? = nil,
+        page: Int? = nil,
         success: @escaping ((GetEventsResponse) -> Void),
         fail: @escaping ((Error?) -> Void)
     ) throws  -> URLSessionDataTask {
@@ -46,6 +47,10 @@ class APIClient {
         
         if let keyword = keyword {
             queryItems.append(.init(name: "keyword", value: keyword))
+        }
+        
+        if let page = page {
+            queryItems.append(.init(name: "page", value: String(page)))
         }
         
         url.append(queryItems: queryItems)

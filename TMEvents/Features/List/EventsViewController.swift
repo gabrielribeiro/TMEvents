@@ -107,13 +107,25 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
         return 120.0
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.size.height {
+            viewModel.fetchDataForNextPage()
+        }
+    }
+    
     // MARK: - UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text ?? ""
         
         if !searchText.isEmpty {
-            viewModel.fetchData(keyword: searchText)
+            viewModel.fetchData(
+                searchText: searchText,
+                page: 0
+            )
         } else {
             viewModel.fetchData()
         }

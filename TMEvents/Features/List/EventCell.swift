@@ -169,8 +169,8 @@ extension Event {
         
         var formattedLocation = venue.city.name
         
-        if let state = venue.state {
-            formattedLocation.append(", \(state.stateCode)")
+        if let stateCode = venue.state?.stateCode {
+            formattedLocation.append(", \(stateCode)")
         }
         
         return formattedLocation
