@@ -11,8 +11,6 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     
     private let viewModel = EventDetailViewModel()
     
-    private var eventImageView: UIImageView?
-    
     private static let reuseIdentifier = "reuseIdentifier"
     
     override func viewDidLoad() {
@@ -53,17 +51,6 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         cell.contentConfiguration = content
 
         return cell
-    }
-    
-    private func loadImageAsync(from imageURL: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.eventImageView?.image = image
-                    self?.tableView.reloadData()
-                }
-            }
-        }
     }
     
     // MARK: - EventDetailViewControllerDelegate
