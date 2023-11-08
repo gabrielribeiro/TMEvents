@@ -23,6 +23,7 @@
 		793DD7312AFB3A2F00FEDB16 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7302AFB3A2F00FEDB16 /* EventDetailViewController.swift */; };
 		793DD7332AFB3A3800FEDB16 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */; };
 		793DD7352AFB454000FEDB16 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7342AFB454000FEDB16 /* EventCell.swift */; };
+		79C856412AFC045C0038B252 /* TableViewPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */; };
 		79D2EF772AFBD9C400B931FB /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D2EF762AFBD9C400B931FB /* DependencyContainer.swift */; };
 		79D2EF792AFBDB4100B931FB /* EventsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D2EF782AFBDB4100B931FB /* EventsAPI.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		793DD7302AFB3A2F00FEDB16 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
 		793DD7342AFB454000FEDB16 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPlaceholder.swift; sourceTree = "<group>"; };
 		79D2EF762AFBD9C400B931FB /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		79D2EF782AFBDB4100B931FB /* EventsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +190,7 @@
 				793DD71E2AFB283000FEDB16 /* EventsViewController.swift */,
 				793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */,
 				793DD7342AFB454000FEDB16 /* EventCell.swift */,
+				79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				793DD6E92AFB22D300FEDB16 /* SceneDelegate.swift in Sources */,
 				79D2EF772AFBD9C400B931FB /* DependencyContainer.swift in Sources */,
 				793DD7272AFB2E8600FEDB16 /* TMResponse.swift in Sources */,
+				79C856412AFC045C0038B252 /* TableViewPlaceholder.swift in Sources */,
 				793DD7332AFB3A3800FEDB16 /* EventDetailViewModel.swift in Sources */,
 				793DD7312AFB3A2F00FEDB16 /* EventDetailViewController.swift in Sources */,
 				793DD72E2AFB35EA00FEDB16 /* EventsViewModel.swift in Sources */,

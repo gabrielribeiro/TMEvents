@@ -89,4 +89,11 @@ class EventsViewModel {
             )
         }
     }
+    
+    func retry() {
+        self.fetchData(
+            searchText: searchText,
+            page: page?.number ?? 0
+        )
+    }
 }

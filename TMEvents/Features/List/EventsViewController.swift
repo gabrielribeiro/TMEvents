@@ -137,26 +137,62 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
     
     func didFail(with error: Error?) {
         if let error = error as? NSError {
+            guard error.code != NSURLErrorCancelled else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.hideTableViewPlaceholder()
+                }
+                return
+            }
+            
+            let title = "Attention!"
+            let button = "Retry"
+            
+            var subtitle = "An unexpected error occured."
+            
             switch error.code {
-            case NSURLErrorCancelled:
-                print("The request was cancelled.")
             case NSURLErrorTimedOut:
-                print("Request timed out. Poor connectivity may be the cause.")
+                subtitle = "Request timed out. Poor connectivity may be the cause."
             case NSURLErrorCannotConnectToHost:
-                print("Cannot connect to the host. Check your internet connection.")
+                subtitle = "Cannot connect to the host. Check your internet connection."
             case NSURLErrorNetworkConnectionLost:
-                print("Network connection lost. Poor connectivity detected.")
+                subtitle = "Network connection lost. Poor connectivity detected."
             default:
-                self.showError(message: error.localizedDescription)
+                subtitle = error.localizedDescription
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.showTableViewPlaceholder(
+                    title: title,
+                    subtitle: subtitle,
+                    button: button,
+                    image: UIImage(systemName: "wifi.slash")
+                ) { [weak self] in
+                    self?.viewModel.retry()
+                }
             }
         } else {
-            self.showError(message: error?.localizedDescription)
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.hideTableViewPlaceholder()
+                self?.showError(message: error?.localizedDescription)
+            }
         }
     }
     
     func didFetchWithSuccess() {
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
+            guard let strongSelf = self else { return }
+            
+            if strongSelf.viewModel.events.isEmpty {
+                strongSelf.tableView.showTableViewPlaceholder(
+                    title: "No events found",
+                    subtitle: "Try searching for another event",
+                    image: UIImage(systemName: "ticket")
+                )
+            } else {
+                strongSelf.tableView.hideTableViewPlaceholder()
+            }
+            
+            strongSelf.tableView.reloadData()
         }
     }
     
