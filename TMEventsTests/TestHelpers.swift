@@ -7,6 +7,7 @@
 
 @testable import TMEvents
 import Foundation
+import CoreData
 
 extension Event {
     static func sampleData() -> Event {
@@ -90,4 +91,20 @@ class FavoritesRepositoryMock: FavoritesRepositoryProtocol {
         isEventFavoritedCalled = true
         return isEventFavoritedReturnValue
     }
+}
+
+// Helper method to create an in-memory Core Data persistent container for testing.
+func createTestPersistentContainer() -> NSPersistentContainer {
+    let container = NSPersistentContainer(name: "TMEvents")
+    let description = NSPersistentStoreDescription()
+    description.type = NSInMemoryStoreType
+    container.persistentStoreDescriptions = [description]
+    
+    container.loadPersistentStores { _, error in
+        if let error = error {
+            fatalError("Failed to load persistent store: \(error)")
+        }
+    }
+    
+    return container
 }
