@@ -155,7 +155,7 @@ extension Event {
     }
     
     var venueName: String? {
-        guard let venue = eventData.venues.first else {
+        guard let venue = eventData?.venues.first else {
             return nil
         }
         
@@ -163,11 +163,17 @@ extension Event {
     }
     
     var location: String? {
-        guard let venue = eventData.venues.first else {
+        guard let venue = eventData?.venues.first else {
             return nil
         }
         
-        return "\(venue.city.name), \(venue.state.stateCode)"
+        var formattedLocation = venue.city.name
+        
+        if let state = venue.state {
+            formattedLocation.append(", \(state.stateCode)")
+        }
+        
+        return formattedLocation
     }
     
     func getBestImage(for sizeClass: UIUserInterfaceSizeClass, preferredRatio: Ratio) -> EventImage? {

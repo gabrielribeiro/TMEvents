@@ -7,16 +7,16 @@
 
 import UIKit
 
-class EventsViewController: UITableViewController, EventsViewControllerDelegate {
+class EventsViewController: UITableViewController, UISearchResultsUpdating, EventsViewControllerDelegate {
     
     private let viewModel = EventsViewModel()
     
-    private var loadingAlertViewController: UIAlertController?
+    private let searchController = UISearchController(searchResultsController: nil)
     
     private static let reuseIdentifier = "reuseIdentifier"
     
     var coordinator: AppCoordinator?
-
+    
     convenience init() {
         self.init(style: .plain)
     }
@@ -24,17 +24,12 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Simple TM Events List"
+        title = "Simple TM Events List"
         
-        self.clearsSelectionOnViewWillAppear = true
+        setupTableView()
+        setupSearchController()
         
-        self.tableView.register(EventCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
-        
-        self.tableView.tableFooterView = UIView()
-        
-        self.tableView.separatorStyle = .none
-        
-        self.viewModel.delegate = self
+        viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,24 +37,59 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
         
         viewModel.fetchData()
     }
-
+    
+    private func setupTableView() {
+        clearsSelectionOnViewWillAppear = true
+        
+        tableView.register(EventCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
+        tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
+    }
+    
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search events"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    private func showError(message: String?) {
+        let alertViewController = UIAlertController(
+            title: "Attention!",
+            message: message ?? "An unexpected error occured.",
+            preferredStyle: .alert
+        )
+        
+        alertViewController.addAction(
+            UIAlertAction(
+                title: "OK",
+                style: .default
+            )
+        )
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertViewController, animated: true)
+        }
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.events.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event = viewModel.events[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath) as! EventCell
-
+        
         cell.configure(for: event)
-
+        
         return cell
     }
     
@@ -77,24 +107,34 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
         return 120.0
     }
     
+    // MARK: - UISearchResultsUpdating
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text ?? ""
+        
+        if !searchText.isEmpty {
+            viewModel.fetchData(keyword: searchText)
+        } else {
+            viewModel.fetchData()
+        }
+    }
+    
     // MARK: - EventsViewControllerDelegate
     
     func didFail(with error: Error?) {
-        let alertViewController = UIAlertController(
-            title: "Attention!",
-            message: error?.localizedDescription ?? "An unexpected error occured.",
-            preferredStyle: .alert
-        )
-        
-        alertViewController.addAction(
-            UIAlertAction(
-                title: "OK",
-                style: .default
-            )
-        )
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertViewController, animated: true)
+        if let error = error as? NSError {
+            switch error.code {
+            case NSURLErrorTimedOut:
+                print("Request timed out. Poor connectivity may be the cause.")
+            case NSURLErrorCannotConnectToHost:
+                print("Cannot connect to the host. Check your internet connection.")
+            case NSURLErrorNetworkConnectionLost:
+                print("Network connection lost. Poor connectivity detected.")
+            default:
+                self.showError(message: error.localizedDescription)
+            }
+        } else {
+            self.showError(message: error?.localizedDescription)
         }
     }
     
@@ -106,28 +146,22 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     
     func loadingDidChange(loading: Bool) {
         guard loading else {
-            DispatchQueue.main.async {
-                self.loadingAlertViewController?.dismiss(animated: false)
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                
+                strongSelf.tableView.backgroundView = UIView()
             }
-            
+
             return
         }
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            
-            let loadingAlertViewController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
 
-            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-            loadingIndicator.hidesWhenStopped = true
-            loadingIndicator.style = UIActivityIndicatorView.Style.medium
-            loadingIndicator.startAnimating();
-
-            loadingAlertViewController.view.addSubview(loadingIndicator)
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            activityIndicator.startAnimating()
             
-            strongSelf.present(loadingAlertViewController, animated: false, completion: nil)
-            
-            strongSelf.loadingAlertViewController = loadingAlertViewController
+            strongSelf.tableView.backgroundView = activityIndicator
         }
     }
 }

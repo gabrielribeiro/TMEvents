@@ -30,19 +30,27 @@ class APIClient {
     }
     
     func getEvents(
+        keyword: String? = nil,
         success: @escaping ((GetEventsResponse) -> Void),
         fail: @escaping ((Error?) -> Void)
-    ) throws {
+    ) throws  -> URLSessionDataTask {
         guard var url = URL(string: urlString) else {
             throw APIError.invalidURL
         }
         
         url.append(path: "events.json")
-        url.append(queryItems: [
-            .init(name: "apikey", value: APIClient.apiKey)
-        ])
         
-        networkService.request(GetEventsResponse.self, url: url) { eventsResponse, response, error in
+        var queryItems: [Foundation.URLQueryItem] = [
+            .init(name: "apikey", value: APIClient.apiKey)
+        ]
+        
+        if let keyword = keyword {
+            queryItems.append(.init(name: "keyword", value: keyword))
+        }
+        
+        url.append(queryItems: queryItems)
+        
+        return networkService.request(GetEventsResponse.self, url: url) { eventsResponse, response, error in
             guard let eventsResponse = eventsResponse, error == nil else {
                 fail(error)
                 

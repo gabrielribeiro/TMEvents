@@ -8,11 +8,11 @@
 import Foundation
 
 protocol NetworkService {
-    func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void)
+    func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
 class TMNetworkService: NetworkService {
-    func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) {
+    func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 completionHandler(nil, response, error)
@@ -23,11 +23,15 @@ class TMNetworkService: NetworkService {
                 let decodedObject = try newJSONDecoder().decode(type, from: data)
                 completionHandler(decodedObject, response, nil)
             } catch {
+                debugPrint(response)
+                
                 completionHandler(nil, response, error)
             }
         }
         
         task.resume()
+        
+        return task
     }
 }
 

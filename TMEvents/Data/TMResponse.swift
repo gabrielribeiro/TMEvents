@@ -8,7 +8,7 @@
 import Foundation
 
 struct TMResponse<T: Codable>: Codable {
-    let embedded: T
+    let embedded: T?
     let page: Page
 
     enum CodingKeys: String, CodingKey {
@@ -25,7 +25,7 @@ struct Event: Codable {
     let id: String
     let name: String
     let dates: Dates
-    let eventData: EventEmbedded
+    let eventData: EventEmbedded?
     let images: [EventImage]
     
     enum CodingKeys: String, CodingKey {
@@ -44,7 +44,7 @@ struct StartDate: Codable {
 }
 
 struct EventImage: Codable {
-    let ratio: Ratio
+    let ratio: Ratio?
     let url: String
     let width, height: Int
     let fallback: Bool
@@ -54,6 +54,7 @@ enum Ratio: String, Codable {
     case the16_9 = "16_9"
     case the3_2 = "3_2"
     case the4_3 = "4_3"
+    case the1_1 = "1_1"
 }
 
 struct Page: Codable {
@@ -66,10 +67,9 @@ struct EventEmbedded: Codable {
 
 struct Venue: Codable {
     let id: String
-    let name: String
+    let name: String?
     let city: City
-    let state: State
-    let country: Country
+    let state: State?
 }
 
 struct City: Codable {
@@ -77,10 +77,5 @@ struct City: Codable {
 }
 
 struct State: Codable {
-    let name, stateCode: String
-}
-
-struct Country: Codable {
-    let name: String
-    let countryCode: String
+    let name, stateCode: String?
 }

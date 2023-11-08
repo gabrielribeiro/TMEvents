@@ -21,35 +21,44 @@ class EventsViewModel {
     
     private let apiClient: APIClient
     
+    private var dataTask: URLSessionDataTask?
+    
     init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
     }
     
-    func fetchData() {
+    func fetchData(keyword: String? = nil) {
+        dataTask?.cancel()
         
         delegate?.loadingDidChange(loading: true)
         
         do {
-            try apiClient.getEvents { [weak self] eventsResponse in
-                
+            self.dataTask = try apiClient.getEvents(keyword: keyword) { [weak self] eventsResponse in
                 guard let strongSelf = self else {
                     return
                 }
                 
-                strongSelf.events = eventsResponse.embedded.events
+                strongSelf.events = eventsResponse.embedded?.events ?? []
                 
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
                 strongSelf.delegate?.didFetchWithSuccess()
             } fail: { [weak self] error in
-                
                 guard let strongSelf = self else {
                     return
                 }
                 
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
-                strongSelf.delegate?.didFail(with: error)
+                if let nsError = error as? NSError {
+                    if nsError.domain == NSURLErrorDomain && nsError.code == -999 {
+                       print("The request was cancelled.")
+                    } else {
+                        strongSelf.delegate?.didFail(with: error)
+                    }
+                } else {
+                    strongSelf.delegate?.didFail(with: error)
+                }
             }
         } catch {
             delegate?.didFail(with: error)
