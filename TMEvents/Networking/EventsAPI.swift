@@ -11,10 +11,6 @@ typealias GetEventsResponse = TMResponse<EventsResponse>
 
 class EventsAPI {
     
-    enum APIError: Error {
-        case invalidURL
-    }
-    
     // TODO: Move to On Demand Resources or any other safe place before go live
     private static let apiKey = "DW0E98NrxUIfDDtNN7ijruVSm60ryFLX"
     
@@ -36,9 +32,9 @@ class EventsAPI {
         page: Int? = nil,
         success: @escaping ((GetEventsResponse) -> Void),
         fail: @escaping ((Error?) -> Void)
-    ) throws  -> URLSessionDataTask {
+    ) -> URLSessionDataTask? {
         guard var url = URL(string: urlString) else {
-            throw APIError.invalidURL
+            fatalError("Invalid URL")
         }
         
         url.append(path: "events.json")

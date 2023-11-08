@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Equatable {
+    
     let id: String
     let name: String
     let dates: Dates
@@ -17,6 +18,10 @@ struct Event: Codable {
     enum CodingKeys: String, CodingKey {
         case id, name, dates, images
         case eventData = "_embedded"
+    }
+    
+    static func == (lhs: Event, rhs: Event) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 
