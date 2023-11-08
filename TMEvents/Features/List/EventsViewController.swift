@@ -9,16 +9,22 @@ import UIKit
 
 class EventsViewController: UITableViewController, UISearchResultsUpdating, EventsViewControllerDelegate {
     
-    private let viewModel = EventsViewModel()
+    var coordinator: AppCoordinator?
+    
+    private let viewModel: EventsViewModel
     
     private let searchController = UISearchController(searchResultsController: nil)
     
     private static let reuseIdentifier = "reuseIdentifier"
     
-    var coordinator: AppCoordinator?
+    init(viewModel: EventsViewModel = EventsViewModel()) {
+        self.viewModel = viewModel
+        
+        super.init(style: .plain)
+    }
     
-    convenience init() {
-        self.init(style: .plain)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {

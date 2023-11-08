@@ -33,6 +33,7 @@
 		79E2D5332AFC1FE50000FCEA /* EventsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */; };
 		79E2D5352AFC23670000FCEA /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5342AFC23670000FCEA /* TestHelpers.swift */; };
 		79E2D5372AFC27B00000FCEA /* EventDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */; };
+		79FD357F2AFC37A000B5683A /* EventsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FD357E2AFC37A000B5683A /* EventsViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPITests.swift; sourceTree = "<group>"; };
 		79E2D5342AFC23670000FCEA /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModelTests.swift; sourceTree = "<group>"; };
+		79FD357E2AFC37A000B5683A /* EventsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				79E2D5342AFC23670000FCEA /* TestHelpers.swift */,
 				79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */,
 				799725422AFC2D1200C64B0F /* EventsViewModelTests.swift */,
+				79FD357E2AFC37A000B5683A /* EventsViewControllerTests.swift */,
 				79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */,
 				7966D4602AFC32620079611C /* EventDetailViewControllerTests.swift */,
 			);
@@ -389,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E2D5332AFC1FE50000FCEA /* EventsAPITests.swift in Sources */,
+				79FD357F2AFC37A000B5683A /* EventsViewControllerTests.swift in Sources */,
 				799725432AFC2D1200C64B0F /* EventsViewModelTests.swift in Sources */,
 				79E2D5372AFC27B00000FCEA /* EventDetailViewModelTests.swift in Sources */,
 				79E2D5352AFC23670000FCEA /* TestHelpers.swift in Sources */,

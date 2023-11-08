@@ -26,6 +26,7 @@ final class EventsViewModelTests: XCTestCase {
     }
 
     override func tearDown() {
+        mockNetworkService = nil
         delegateMock = nil
         eventsAPIMock = nil
         favoritesRepositoryMock = nil
