@@ -30,6 +30,7 @@
 		79E2D5312AFC15130000FCEA /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5302AFC15130000FCEA /* Event.swift */; };
 		79E2D5332AFC1FE50000FCEA /* EventsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */; };
 		79E2D5352AFC23670000FCEA /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5342AFC23670000FCEA /* TestHelpers.swift */; };
+		79E2D5372AFC27B00000FCEA /* EventDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		79E2D5302AFC15130000FCEA /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAPITests.swift; sourceTree = "<group>"; };
 		79E2D5342AFC23670000FCEA /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				79E2D5342AFC23670000FCEA /* TestHelpers.swift */,
 				79E2D5322AFC1FE50000FCEA /* EventsAPITests.swift */,
+				79E2D5362AFC27B00000FCEA /* EventDetailViewModelTests.swift */,
 			);
 			path = TMEventsTests;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E2D5332AFC1FE50000FCEA /* EventsAPITests.swift in Sources */,
+				79E2D5372AFC27B00000FCEA /* EventDetailViewModelTests.swift in Sources */,
 				79E2D5352AFC23670000FCEA /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

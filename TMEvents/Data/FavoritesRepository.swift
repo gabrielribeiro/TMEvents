@@ -8,7 +8,12 @@
 import Foundation
 import CoreData
 
-class FavoritesRepository {
+protocol FavoritesRepositoryProtocol {
+    func toggleFavoriteStatus(forEventWithId id: String)
+    func isEventFavorited(withId id: String) -> Bool
+}
+
+class FavoritesRepository: FavoritesRepositoryProtocol {
     
     private var cachedFavoriteEvents: [FavoriteEvent] = []
     
@@ -53,7 +58,7 @@ class FavoritesRepository {
     }
     
     // Fetch favorited events from Core Data and cache them.
-    func fetchFavoriteEvents() {
+    private func fetchFavoriteEvents() {
         let fetchRequest: NSFetchRequest<FavoriteEvent> = FavoriteEvent.fetchRequest()
         
         do {
@@ -63,7 +68,7 @@ class FavoritesRepository {
         }
     }
     
-    func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

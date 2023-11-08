@@ -39,12 +39,12 @@ class EventDetailViewModel {
     
     private (set) var items: [Row] = []
     
-    private let favoritesRepository: FavoritesRepository
+    private let favoritesRepository: FavoritesRepositoryProtocol
     
     private var event: Event?
     
     init(
-        favoritesRepository: FavoritesRepository = DependencyContainer.shared.resolve(type: FavoritesRepository.self)!
+        favoritesRepository: FavoritesRepositoryProtocol = DependencyContainer.shared.resolve(type: FavoritesRepositoryProtocol.self)!
     ) {
         self.favoritesRepository = favoritesRepository
     }

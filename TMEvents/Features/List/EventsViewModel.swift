@@ -24,13 +24,13 @@ class EventsViewModel {
     private var isFetchingNextPageData = false
     
     private let eventsAPI: EventsAPI
-    private let favoritesRepository: FavoritesRepository
+    private let favoritesRepository: FavoritesRepositoryProtocol
     
     private var dataTask: URLSessionDataTask?
     
     init(
         eventsAPI: EventsAPI = DependencyContainer.shared.resolve(type: EventsAPI.self)!,
-        favoritesRepository: FavoritesRepository = DependencyContainer.shared.resolve(type: FavoritesRepository.self)!
+        favoritesRepository: FavoritesRepositoryProtocol = DependencyContainer.shared.resolve(type: FavoritesRepositoryProtocol.self)!
     ) {
         self.eventsAPI = eventsAPI
         self.favoritesRepository = favoritesRepository
@@ -45,38 +45,34 @@ class EventsViewModel {
         
         self.searchText = searchText
         
-        do {
-            self.dataTask = try eventsAPI.getEvents(keyword: searchText, page: page) { [weak self] eventsResponse in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                strongSelf.page = eventsResponse.page
-                
-                if strongSelf.page?.number == 0 || newSearch {
-                    strongSelf.events = eventsResponse.embedded?.events ?? []
-                } else {
-                    strongSelf.events.append(contentsOf: (eventsResponse.embedded?.events ?? []))
-                }
-                
-                strongSelf.isFetchingNextPageData = false
-                
-                strongSelf.delegate?.loadingDidChange(loading: false)
-                
-                strongSelf.delegate?.didFetchWithSuccess()
-            } fail: { [weak self] error in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                strongSelf.isFetchingNextPageData = false
-                
-                strongSelf.delegate?.loadingDidChange(loading: false)
-                
-                strongSelf.delegate?.didFail(with: error)
+        self.dataTask = eventsAPI.getEvents(keyword: searchText, page: page) { [weak self] eventsResponse in
+            guard let strongSelf = self else {
+                return
             }
-        } catch {
-            delegate?.didFail(with: error)
+            
+            strongSelf.page = eventsResponse.page
+            
+            if strongSelf.page?.number == 0 || newSearch {
+                strongSelf.events = eventsResponse.embedded?.events ?? []
+            } else {
+                strongSelf.events.append(contentsOf: (eventsResponse.embedded?.events ?? []))
+            }
+            
+            strongSelf.isFetchingNextPageData = false
+            
+            strongSelf.delegate?.loadingDidChange(loading: false)
+            
+            strongSelf.delegate?.didFetchWithSuccess()
+        } fail: { [weak self] error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.isFetchingNextPageData = false
+            
+            strongSelf.delegate?.loadingDidChange(loading: false)
+            
+            strongSelf.delegate?.didFail(with: error)
         }
     }
     

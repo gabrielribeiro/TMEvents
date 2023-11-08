@@ -8,17 +8,37 @@
 @testable import TMEvents
 import Foundation
 
+extension Event {
+    static func sampleData() -> Event {
+        return Event(
+            id: "A",
+            name: "SF49 x Miami Phins",
+            dates: Dates(start:
+                            StartDate(dateTime: Date(timeIntervalSince1970: 1609459200))
+                        ),
+            eventData: EventEmbedded(venues: [
+                Venue(
+                    id: "A",
+                    name: "Stadium",
+                    city: City(
+                        name: "San Fracisco"
+                    ),
+                    state: State(
+                        name: "California",
+                        stateCode: "CA"
+                    )
+                )
+            ]),
+            images: []
+        )
+    }
+}
+
 extension GetEventsResponse {
     static func sampleData() -> GetEventsResponse {
         let eventsResponse = GetEventsResponse(
             embedded: .init(events: [
-                Event(
-                    id: "A",
-                    name: "SF49 x Miami Phins",
-                    dates: Dates(start: StartDate(dateTime: nil)),
-                    eventData: nil,
-                    images: []
-                )
+                Event.sampleData()
             ]),
             page: Page(
                 size: 1,
@@ -53,5 +73,21 @@ class MockNetworkService: NetworkServiceProtocol {
         }
         
         return nil
+    }
+}
+
+class FavoritesRepositoryMock: FavoritesRepositoryProtocol {
+    
+    var toggleFavoriteStatusCalled = false
+    var isEventFavoritedCalled = false
+    var isEventFavoritedReturnValue = false
+    
+    func toggleFavoriteStatus(forEventWithId id: String) {
+        toggleFavoriteStatusCalled = true
+    }
+    
+    func isEventFavorited(withId id: String) -> Bool {
+        isEventFavoritedCalled = true
+        return isEventFavoritedReturnValue
     }
 }

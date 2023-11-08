@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        DependencyContainer.shared.register(type: FavoritesRepository.self, component: FavoritesRepository())
+        DependencyContainer.shared.register(type: FavoritesRepositoryProtocol.self, component: FavoritesRepository())
         DependencyContainer.shared.register(type: NetworkServiceProtocol.self, component: NetworkService())
         DependencyContainer.shared.register(type: EventsAPI.self, component: EventsAPI())
         
