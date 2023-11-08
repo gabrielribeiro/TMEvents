@@ -28,7 +28,7 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
         
         self.clearsSelectionOnViewWillAppear = true
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
+        self.tableView.register(EventCell.self, forCellReuseIdentifier: Self.reuseIdentifier)
         
         self.tableView.tableFooterView = UIView()
         
@@ -54,9 +54,9 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event = viewModel.events[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath) as! EventCell
 
-        cell.textLabel?.text = event.name
+        cell.configure(for: event)
 
         return cell
     }
@@ -65,6 +65,14 @@ class EventsViewController: UITableViewController, EventsViewControllerDelegate 
         let event = viewModel.events[indexPath.row]
         
         coordinator?.pushEvent(event)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 110.0
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 110.0
     }
     
     // MARK: - EventsViewControllerDelegate

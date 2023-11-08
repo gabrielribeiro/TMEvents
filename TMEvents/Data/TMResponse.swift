@@ -22,10 +22,25 @@ struct EventsResponse: Codable {
 }
 
 struct Event: Codable {
-    let name: String
-    let type: String
     let id: String
+    let name: String
+    let dates: Dates
+    let eventData: EventEmbedded
     let images: [EventImage]
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, dates, images
+        case eventData = "_embedded"
+    }
+}
+
+struct Dates: Codable {
+    let start: StartDate
+}
+
+struct StartDate: Codable {
+    let localDate, localTime: String
+    let dateTime: Date
 }
 
 struct EventImage: Codable {
@@ -43,4 +58,29 @@ enum Ratio: String, Codable {
 
 struct Page: Codable {
     let size, totalElements, totalPages, number: Int
+}
+
+struct EventEmbedded: Codable {
+    let venues: [Venue]
+}
+
+struct Venue: Codable {
+    let id: String
+    let name: String
+    let city: City
+    let state: State
+    let country: Country
+}
+
+struct City: Codable {
+    let name: String
+}
+
+struct State: Codable {
+    let name, stateCode: String
+}
+
+struct Country: Codable {
+    let name: String
+    let countryCode: String
 }

@@ -23,6 +23,7 @@
 		793DD72E2AFB35EA00FEDB16 /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */; };
 		793DD7312AFB3A2F00FEDB16 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7302AFB3A2F00FEDB16 /* EventDetailViewController.swift */; };
 		793DD7332AFB3A3800FEDB16 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */; };
+		793DD7352AFB454000FEDB16 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7342AFB454000FEDB16 /* EventCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		793DD7302AFB3A2F00FEDB16 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
+		793DD7342AFB454000FEDB16 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			children = (
 				793DD71E2AFB283000FEDB16 /* EventsViewController.swift */,
 				793DD72D2AFB35EA00FEDB16 /* EventsViewModel.swift */,
+				793DD7342AFB454000FEDB16 /* EventCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				793DD71F2AFB283000FEDB16 /* EventsViewController.swift in Sources */,
 				793DD7212AFB29C000FEDB16 /* AppCoordinator.swift in Sources */,
 				793DD72C2AFB344400FEDB16 /* APIClient.swift in Sources */,
+				793DD7352AFB454000FEDB16 /* EventCell.swift in Sources */,
 				793DD6E92AFB22D300FEDB16 /* SceneDelegate.swift in Sources */,
 				793DD7272AFB2E8600FEDB16 /* TMResponse.swift in Sources */,
 				793DD7332AFB3A3800FEDB16 /* EventDetailViewModel.swift in Sources */,
