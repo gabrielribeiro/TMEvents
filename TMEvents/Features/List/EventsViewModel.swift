@@ -24,11 +24,16 @@ class EventsViewModel {
     private var isFetchingNextPageData = false
     
     private let eventsAPI: EventsAPI
+    private let favoritesRepository: FavoritesRepository
     
     private var dataTask: URLSessionDataTask?
     
-    init(eventsAPI: EventsAPI = EventsAPI()) {
+    init(
+        eventsAPI: EventsAPI = DependencyContainer.shared.resolve(type: EventsAPI.self)!,
+        favoritesRepository: FavoritesRepository = DependencyContainer.shared.resolve(type: FavoritesRepository.self)!
+    ) {
         self.eventsAPI = eventsAPI
+        self.favoritesRepository = favoritesRepository
     }
     
     func fetchData(searchText: String? = nil, page: Int = 0) {
@@ -65,7 +70,7 @@ class EventsViewModel {
                 }
                 
                 strongSelf.isFetchingNextPageData = false
-
+                
                 strongSelf.delegate?.loadingDidChange(loading: false)
                 
                 strongSelf.delegate?.didFail(with: error)
@@ -95,5 +100,9 @@ class EventsViewModel {
             searchText: searchText,
             page: page?.number ?? 0
         )
+    }
+    
+    func isEventFavorited(_ event: Event) -> Bool {
+        return favoritesRepository.isEventFavorited(withId: event.id)
     }
 }

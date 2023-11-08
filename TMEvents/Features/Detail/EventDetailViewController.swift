@@ -26,6 +26,24 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
         title = event.name
         
         viewModel.setData(for: event)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: self.getFavImage(),
+            style: .plain,
+            target: self,
+            action: #selector(toggleFavoriteButtonTapped)
+        )
+    }
+    
+    @objc func toggleFavoriteButtonTapped() {
+        viewModel.toggleFavorite()
+    }
+    
+    private func getFavImage() -> UIImage {
+        let favoriteImage = UIImage(systemName: "star")
+        let unfavoriteImage = UIImage(systemName: "star.fill")
+        
+        return viewModel.isEventFavorited() ? unfavoriteImage! : favoriteImage!
     }
 
     // MARK: - Table view data source
@@ -57,7 +75,11 @@ class EventDetailViewController: UITableViewController, EventDetailViewControlle
     
     func didSetData() {
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
+            guard let strongSelf = self else { return }
+            
+            strongSelf.tableView.reloadData()
+            
+            strongSelf.navigationItem.rightBarButtonItem?.image = strongSelf.getFavImage()
         }
     }
 }

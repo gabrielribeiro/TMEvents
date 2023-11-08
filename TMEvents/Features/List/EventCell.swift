@@ -31,6 +31,16 @@ class EventCell: UITableViewCell {
         return imageView
     }()
     
+    private let starImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "star.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        return imageView
+    }()
+    
     private let labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +99,7 @@ class EventCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(for event: Event) {
+    func configure(for event: Event, isFavorite: Bool) {
         eventTitle.text = event.name
         eventDate.text = event.formattedDate
         eventVenue.text = event.venueName
@@ -103,6 +113,8 @@ class EventCell: UITableViewCell {
         } else {
             self.eventImageView.image = UIImage(systemName: "ticket.fill")
         }
+        
+        starImageView.isHidden = !isFavorite
     }
     
     private func loadImageAsync(from imageURL: URL) {
@@ -122,12 +134,17 @@ class EventCell: UITableViewCell {
             labelsStackView.addArrangedSubview(label)
         }
         
+        eventImageView.addSubview(starImageView)
+        
         baseView.addSubview(eventImageView)
         baseView.addSubview(labelsStackView)
         
         contentView.addSubview(baseView)
         
         NSLayoutConstraint.activate([
+            starImageView.leadingAnchor.constraint(equalTo: eventImageView.leadingAnchor),
+            starImageView.topAnchor.constraint(equalTo: eventImageView.topAnchor, constant: 16),
+            
             baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),

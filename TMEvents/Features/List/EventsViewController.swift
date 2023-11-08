@@ -35,9 +35,7 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if viewModel.events.isEmpty {
-            viewModel.fetchData()
-        }
+        viewModel.fetchData()
     }
     
     private func setupTableView() {
@@ -90,7 +88,7 @@ class EventsViewController: UITableViewController, UISearchResultsUpdating, Even
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath) as! EventCell
         
-        cell.configure(for: event)
+        cell.configure(for: event, isFavorite: viewModel.isEventFavorited(event))
         
         return cell
     }

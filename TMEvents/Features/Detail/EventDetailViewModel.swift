@@ -39,7 +39,19 @@ class EventDetailViewModel {
     
     private (set) var items: [Row] = []
     
+    private let favoritesRepository: FavoritesRepository
+    
+    private var event: Event?
+    
+    init(
+        favoritesRepository: FavoritesRepository = DependencyContainer.shared.resolve(type: FavoritesRepository.self)!
+    ) {
+        self.favoritesRepository = favoritesRepository
+    }
+    
     func setData(for event: Event) {
+        self.event = event
+        
         items = [
             .init(value: event.name, rowType: .name)
         ]
@@ -57,5 +69,23 @@ class EventDetailViewModel {
         }
         
         delegate?.didSetData()
+    }
+    
+    func toggleFavorite() {
+        guard let eventId = event?.id else {
+            return
+        }
+        
+        favoritesRepository.toggleFavoriteStatus(forEventWithId: eventId)
+        
+        delegate?.didSetData()
+    }
+    
+    func isEventFavorited() -> Bool {
+        guard let eventId = event?.id else {
+            return false
+        }
+        
+        return favoritesRepository.isEventFavorited(withId: eventId)
     }
 }
