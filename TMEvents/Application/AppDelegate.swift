@@ -12,7 +12,10 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        DependencyContainer.shared.register(type: NetworkServiceProtocol.self, component: NetworkService())
+        DependencyContainer.shared.register(type: EventsAPI.self, component: EventsAPI())
+        
         return true
     }
 

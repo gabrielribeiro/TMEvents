@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol NetworkService {
+protocol NetworkServiceProtocol {
     func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
-class TMNetworkService: NetworkService {
+class NetworkService: NetworkServiceProtocol {
     func request<T: Codable>(_ type: T.Type, url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
@@ -20,10 +20,10 @@ class TMNetworkService: NetworkService {
             }
             
             do {
-                let decodedObject = try newJSONDecoder().decode(type, from: data)
+                let decodedObject = try self.newJSONDecoder().decode(type, from: data)
                 completionHandler(decodedObject, response, nil)
             } catch {
-                debugPrint(response)
+                debugPrint(response as Any)
                 
                 completionHandler(nil, response, error)
             }
@@ -33,12 +33,12 @@ class TMNetworkService: NetworkService {
         
         return task
     }
-}
-
-fileprivate func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
+    
+    fileprivate func newJSONDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
+            decoder.dateDecodingStrategy = .iso8601
+        }
+        return decoder
     }
-    return decoder
 }

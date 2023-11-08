@@ -21,12 +21,12 @@ class EventsViewModel {
     private (set) var searchText: String?
     private (set) var page: Page?
     
-    private let apiClient: APIClient
+    private let eventsAPI: EventsAPI
     
     private var dataTask: URLSessionDataTask?
     
-    init(apiClient: APIClient = APIClient()) {
-        self.apiClient = apiClient
+    init(eventsAPI: EventsAPI = EventsAPI()) {
+        self.eventsAPI = eventsAPI
     }
     
     func fetchData(searchText: String? = nil, page: Int = 0) {
@@ -37,7 +37,7 @@ class EventsViewModel {
         self.searchText = searchText
         
         do {
-            self.dataTask = try apiClient.getEvents(keyword: searchText, page: page) { [weak self] eventsResponse in
+            self.dataTask = try eventsAPI.getEvents(keyword: searchText, page: page) { [weak self] eventsResponse in
                 guard let strongSelf = self else {
                     return
                 }

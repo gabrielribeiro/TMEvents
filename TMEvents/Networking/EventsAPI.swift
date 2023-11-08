@@ -1,5 +1,5 @@
 //
-//  APIClient.swift
+//  EventsAPI.swift
 //  TMEvents
 //
 //  Created by Gabriel Ribeiro on 08/11/23.
@@ -9,21 +9,23 @@ import Foundation
 
 typealias GetEventsResponse = TMResponse<EventsResponse>
 
-class APIClient {
+class EventsAPI {
     
     enum APIError: Error {
         case invalidURL
     }
     
-    private static let defaultURLString = "https://app.ticketmaster.com/discovery/v2/"
+    // TODO: Move to On Demand Resources or any other safe place before go live
     private static let apiKey = "DW0E98NrxUIfDDtNN7ijruVSm60ryFLX"
     
+    private static let defaultURLString = "https://app.ticketmaster.com/discovery/v2/"
+    
     private let urlString: String
-    private let networkService: NetworkService
+    private let networkService: NetworkServiceProtocol
     
     init(
-        networkService: NetworkService = TMNetworkService(),
-        urlString: String = APIClient.defaultURLString
+        networkService: NetworkServiceProtocol = DependencyContainer.shared.resolve(type: NetworkServiceProtocol.self)!,
+        urlString: String = EventsAPI.defaultURLString
     ) {
         self.networkService = networkService
         self.urlString = urlString
@@ -41,8 +43,8 @@ class APIClient {
         
         url.append(path: "events.json")
         
-        var queryItems: [Foundation.URLQueryItem] = [
-            .init(name: "apikey", value: APIClient.apiKey)
+        var queryItems: [URLQueryItem] = [
+            .init(name: "apikey", value: EventsAPI.apiKey)
         ]
         
         if let keyword = keyword {
