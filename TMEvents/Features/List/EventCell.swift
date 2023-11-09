@@ -109,9 +109,7 @@ class EventCell: UITableViewCell {
         eventVenue.text = event.venueName
         eventVenueLocation.text = event.location
         
-        let sizeClass = self.traitCollection.horizontalSizeClass
-        
-        if let bestImage = event.getBestImage(for: sizeClass, preferredRatio: .the3_2),
+        if let bestImage = event.getBestImage(for: .regular, preferredRatio: .the3_2),
            let url = URL(string: bestImage.url) {
             self.loadImageAsync(from: url)
         } else {

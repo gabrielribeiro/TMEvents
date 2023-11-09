@@ -23,6 +23,8 @@
 		793DD7332AFB3A3800FEDB16 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */; };
 		793DD7352AFB454000FEDB16 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793DD7342AFB454000FEDB16 /* EventCell.swift */; };
 		7966D4612AFC32620079611C /* EventDetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7966D4602AFC32620079611C /* EventDetailViewControllerTests.swift */; };
+		7969151D2AFD45E000009484 /* EventDetailViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7969151C2AFD45E000009484 /* EventDetailViewControllerUITests.swift */; };
+		7969151F2AFD45EE00009484 /* EventsViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7969151E2AFD45EE00009484 /* EventsViewControllerUITests.swift */; };
 		799725432AFC2D1200C64B0F /* EventsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799725422AFC2D1200C64B0F /* EventsViewModelTests.swift */; };
 		79C856412AFC045C0038B252 /* TableViewPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */; };
 		79C8564B2AFC10750038B252 /* FavoriteEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8564A2AFC10750038B252 /* FavoriteEvent.swift */; };
@@ -75,6 +77,8 @@
 		793DD7322AFB3A3800FEDB16 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
 		793DD7342AFB454000FEDB16 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		7966D4602AFC32620079611C /* EventDetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewControllerTests.swift; sourceTree = "<group>"; };
+		7969151C2AFD45E000009484 /* EventDetailViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewControllerUITests.swift; sourceTree = "<group>"; };
+		7969151E2AFD45EE00009484 /* EventsViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewControllerUITests.swift; sourceTree = "<group>"; };
 		7985218F2AFC54A1007CA15C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		799725422AFC2D1200C64B0F /* EventsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModelTests.swift; sourceTree = "<group>"; };
 		79C856402AFC045C0038B252 /* TableViewPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewPlaceholder.swift; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 			children = (
 				793DD70A2AFB22D400FEDB16 /* TMEventsUITests.swift */,
 				793DD70C2AFB22D400FEDB16 /* TMEventsUITestsLaunchTests.swift */,
+				7969151E2AFD45EE00009484 /* EventsViewControllerUITests.swift */,
+				7969151C2AFD45E000009484 /* EventDetailViewControllerUITests.swift */,
 			);
 			path = TMEventsUITests;
 			sourceTree = "<group>";
@@ -412,8 +418,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7969151D2AFD45E000009484 /* EventDetailViewControllerUITests.swift in Sources */,
 				793DD70D2AFB22D400FEDB16 /* TMEventsUITestsLaunchTests.swift in Sources */,
 				793DD70B2AFB22D400FEDB16 /* TMEventsUITests.swift in Sources */,
+				7969151F2AFD45EE00009484 /* EventsViewControllerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

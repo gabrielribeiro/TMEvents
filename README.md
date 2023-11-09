@@ -93,3 +93,12 @@ The project setup is straightforward, with no external dependencies, making it e
   <img src="Images/5.png" alt="Empty results" title="Empty results" width="200"/>
   <img src="Images/6.png" alt="Poor connectivity" title="Poor connectivity" width="200"/>
 </p>
+<p align="center">
+  <img src="Images/7.png" alt="Loading" title="iPad Listing Portrait" width="300"/>
+  <img src="Images/8.png" alt="Empty results" title="iPad Detail Portrait" width="300"/>
+<p align="center">
+  <img src="Images/9.png" alt="Loading" title="iPad Listing Landscape" width="600"/>
+</p>
+<p align="center">
+  <img src="Images/10.png" alt="Empty results" title="iPad Detail Landscape" width="600"/>
+</p>

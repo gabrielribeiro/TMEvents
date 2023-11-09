@@ -4,84 +4,68 @@ import XCTest
 @MainActor
 final class EventDetailViewControllerTests: XCTestCase {
     
-    var viewController: EventDetailViewController!
+    var sut: EventDetailViewController!
     var viewModelMock: EventDetailViewModelMock!
     
     override func setUp() {
         super.setUp()
         
         viewModelMock = EventDetailViewModelMock()
-        viewController = EventDetailViewController(viewModel: viewModelMock)
+        sut = EventDetailViewController(viewModel: viewModelMock)
     }
     
     override func tearDown() {
         viewModelMock = nil
-        viewController = nil
+        sut = nil
         
         super.tearDown()
     }
     
-    func testViewDidLoad() {
-        // Given
-        let tableView = viewController.tableView
-        
-        // When
-        viewController.viewDidLoad()
-        
-        // Then
-        XCTAssertEqual(viewController.title, "Event info")
-        XCTAssertEqual(viewModelMock.delegate, viewController)
-        XCTAssertNotNil(tableView)
-        XCTAssertEqual(tableView?.numberOfSections, 1)
-        XCTAssertNotNil(tableView?.tableFooterView)
+    func testViewController_SetsUpSubviewsCorrectly() throws {
+        XCTAssertNotNil(sut.scrollView)
+        XCTAssertNotNil(sut.contentView)
+        XCTAssertNotNil(sut.imageView)
+        XCTAssertNotNil(sut.eventNameLabel)
+        XCTAssertNotNil(sut.eventDateLabel)
+        XCTAssertNotNil(sut.eventVenueLabel)
+        XCTAssertNotNil(sut.eventCityLabel)
     }
+    
     
     func testConfigure() {
         // Given
         let event = Event.sampleData()
-        let mockImage = UIImage(systemName: "star")
         
         // When
-        viewController.configure(for: event)
+        sut.configure(for: event)
         
         // Then
-        XCTAssertTrue(viewModelMock.didSetDataCalled)
-        XCTAssertEqual(viewController.navigationItem.rightBarButtonItem?.image, mockImage)
+        XCTAssertTrue(viewModelMock.didSetEventCalled)
+        XCTAssertEqual(sut.eventNameLabel.text, event.name)
+        XCTAssertEqual(sut.eventDateLabel.text, event.formattedDate)
+        XCTAssertEqual(sut.eventVenueLabel.text, event.venueName)
+        XCTAssertEqual(sut.eventCityLabel.text, event.location)
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem?.image)
     }
     
     func testToggleFavoriteButtonTapped() {
         // Given
         
         // When
-        viewController.toggleFavoriteButtonTapped()
+        sut.toggleFavoriteButtonTapped()
         
         // Then
         XCTAssertTrue(viewModelMock.toggleFavoriteCalled)
     }
-    
-    func testDidSetData() {
-        // Given
-        let event = Event.sampleData()
-        viewController.configure(for: event)
-        let tableView = viewController.tableView
-        
-        // When
-        viewModelMock.setData(for: event)
-        viewController.didSetData()
-        
-        // Then
-        XCTAssertTrue(viewModelMock.didSetDataCalled)
-        XCTAssertEqual(tableView?.numberOfRows(inSection: 0), 4)
-    }
 }
 
 class EventDetailViewModelMock: EventDetailViewModel {
-    var didSetDataCalled = false
+    var didSetEventCalled = false
     var toggleFavoriteCalled = false
-
-    override func setData(for event: Event) {
-        super.setData(for: event)
-        didSetDataCalled = true
+    
+    override func setEvent(_ event: Event) {
+        super.setEvent(event)
+        didSetEventCalled = true
     }
 
     override func toggleFavorite() {

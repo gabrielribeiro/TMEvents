@@ -4,19 +4,19 @@ import XCTest
 @MainActor
 final class EventsViewControllerTests: XCTestCase {
     
-    var viewController: EventsViewController!
+    var sut: EventsViewController!
     var viewModelMock: EventsViewModelMock!
     
     override func setUp() {
         super.setUp()
         
         viewModelMock = EventsViewModelMock()
-        viewController = EventsViewController(viewModel: viewModelMock)
+        sut = EventsViewController(viewModel: viewModelMock)
     }
 
     override func tearDown() {
         viewModelMock = nil
-        viewController = nil
+        sut = nil
         
         super.tearDown()
     }
@@ -25,19 +25,19 @@ final class EventsViewControllerTests: XCTestCase {
         // Given
         
         // When
-        viewController.viewDidLoad()
+        sut.viewDidLoad()
         
         // Then
-        XCTAssertEqual(viewController.title, "Simple TM Events List")
-        XCTAssertNotNil(viewController.tableView)
-        XCTAssertEqual(viewModelMock.delegate, viewController)
+        XCTAssertEqual(sut.title, "Simple TM Events List")
+        XCTAssertNotNil(sut.tableView)
+        XCTAssertEqual(viewModelMock.delegate, sut)
     }
 
     func testViewDidAppear() {
         // Given
         
         // When
-        viewController.viewDidAppear(true)
+        sut.viewDidAppear(true)
         
         // Then
         XCTAssertTrue(viewModelMock.fetchDataCalled)

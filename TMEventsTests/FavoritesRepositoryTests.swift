@@ -5,21 +5,21 @@ import CoreData
 @MainActor
 final class FavoritesRepositoryTests: XCTestCase {
 
-    var favoritesRepository: FavoritesRepository!
+    var sut: FavoritesRepository!
     var persistentContainer: NSPersistentContainer!
 
     override func setUp() {
         super.setUp()
 
         persistentContainer = createTestPersistentContainer()
-        favoritesRepository = FavoritesRepository()
-        favoritesRepository.persistentContainer = persistentContainer
+        sut = FavoritesRepository()
+        sut.persistentContainer = persistentContainer
     }
 
     override func tearDown() {
         super.tearDown()
         
-        favoritesRepository = nil
+        sut = nil
         persistentContainer = nil
     }
 
@@ -28,16 +28,16 @@ final class FavoritesRepositoryTests: XCTestCase {
         let eventId = "1"
         
         // When
-        favoritesRepository.toggleFavoriteStatus(forEventWithId: eventId)
+        sut.toggleFavoriteStatus(forEventWithId: eventId)
         
         // Then
-        XCTAssertTrue(favoritesRepository.isEventFavorited(withId: eventId))
+        XCTAssertTrue(sut.isEventFavorited(withId: eventId))
         
         // When
-        favoritesRepository.toggleFavoriteStatus(forEventWithId: eventId)
+        sut.toggleFavoriteStatus(forEventWithId: eventId)
         
         // Then
-        XCTAssertFalse(favoritesRepository.isEventFavorited(withId: eventId))
+        XCTAssertFalse(sut.isEventFavorited(withId: eventId))
     }
 
     func testIsEventFavorited() {
@@ -45,9 +45,9 @@ final class FavoritesRepositoryTests: XCTestCase {
         let eventId = "2"
         
         // When
-        favoritesRepository.toggleFavoriteStatus(forEventWithId: eventId)
+        sut.toggleFavoriteStatus(forEventWithId: eventId)
         
         // Then
-        XCTAssertTrue(favoritesRepository.isEventFavorited(withId: eventId))
+        XCTAssertTrue(sut.isEventFavorited(withId: eventId))
     }
 }

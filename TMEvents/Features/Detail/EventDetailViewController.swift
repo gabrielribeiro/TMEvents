@@ -11,68 +11,74 @@ class EventDetailViewController: UIViewController {
     
     private let viewModel: EventDetailViewModel
     
-    private let scrollView: UIScrollView = {
+    let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .clear
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
-    private let contentView: UIView = {
+    let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "EventDetailView"
         return view
     }()
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.accessibilityIdentifier = "EventImageView"
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private let eventNameLabel: UILabel = {
+    let eventNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventTitleLabelIdentifier"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let eventDateLabel: UILabel = {
+    let eventDateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventDateLabelIdentifier"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let eventVenueLabel: UILabel = {
+    let eventVenueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventVenueLabelIdentifier"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let eventCityLabel: UILabel = {
+    let eventCityLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
+        label.accessibilityIdentifier = "EventLocationLabelIdentifier"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -120,7 +126,7 @@ class EventDetailViewController: UIViewController {
             target: self,
             action: #selector(toggleFavoriteButtonTapped)
         )
-        navigationItem.rightBarButtonItem?.accessibilityIdentifier = "Favorite_Button"
+        navigationItem.rightBarButtonItem?.accessibilityIdentifier = "FavoriteButton"
     }
     
     private func loadImageAsync(from imageURL: URL) {
@@ -184,6 +190,7 @@ class EventDetailViewController: UIViewController {
     
     private func setupCloseButton() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissSelf))
+        closeButton.accessibilityIdentifier = "Close"
         navigationItem.leftBarButtonItem = closeButton
     }
     
