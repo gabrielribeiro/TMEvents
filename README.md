@@ -73,9 +73,12 @@ TMEvents employs the Model-View-ViewModel (MVVM) architectural pattern, ensuring
 
 ## Testing and Code Coverage
 
-The project includes unit tests for Networking, ViewModels, ViewControllers, and Persistence. The current code coverage is 70.7%.
+The project includes unit tests for Networking, ViewModels, ViewControllers, and Persistence. The current code coverage is 73.5%.
 
-![Code Coverage](Images/CodeCoverage.png "Code Coverage")
+
+<p align="center">
+  <img src="Images/CodeCoverage.png" alt="Code Coverage.png" title="Code Coverage.png" width="600"/>
+</p>
 
 ## Setup
 
@@ -94,11 +97,11 @@ The project setup is straightforward, with no external dependencies, making it e
   <img src="Images/6.png" alt="Poor connectivity" title="Poor connectivity" width="200"/>
 </p>
 <p align="center">
-  <img src="Images/7.png" alt="Loading" title="iPad Listing Portrait" width="300"/>
-  <img src="Images/8.png" alt="Empty results" title="iPad Detail Portrait" width="300"/>
+  <img src="Images/7.png" alt="iPad Listing Portrait" title="iPad Listing Portrait" width="300"/>
+  <img src="Images/8.png" alt="iPad Detail Portrait" title="iPad Detail Portrait" width="300"/>
 <p align="center">
-  <img src="Images/9.png" alt="Loading" title="iPad Listing Landscape" width="600"/>
+  <img src="Images/9.png" alt="iPad Listing Landscape" title="iPad Listing Landscape" width="600"/>
 </p>
 <p align="center">
-  <img src="Images/10.png" alt="Empty results" title="iPad Detail Landscape" width="600"/>
+  <img src="Images/10.png" alt="iPad Detail Landscape" title="iPad Detail Landscape" width="600"/>
 </p>
