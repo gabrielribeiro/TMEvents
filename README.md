@@ -13,6 +13,7 @@ TMEvents is an iOS application that interfaces with the Ticketmaster API to prov
 6. [Testing and Code Coverage](#testing-and-code-coverage)
 7. [Setup](#setup)
 8. [Screenshots](#screenshots)
+9. [Contact](#contact)
 
 ## TODO
 
@@ -105,3 +106,11 @@ The project setup is straightforward, with no external dependencies, making it e
 <p align="center">
   <img src="Images/10.png" alt="iPad Detail Landscape" title="iPad Detail Landscape" width="600"/>
 </p>
+
+## Contact
+
+For questions, feedback, concerns, or further understanding, please reach out to:
+
+[Gabriel Ribeiro](mailto:gabrielribeiro@live.com)
+
+[Linkedin Profile](https://www.linkedin.com/in/gabriel-ribeiro-a0a4b9231/)
