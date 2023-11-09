@@ -7,41 +7,11 @@
 
 import Foundation
 
-protocol EventDetailViewControllerDelegate: NSObject {
-    func didSetData()
-}
-
 class EventDetailViewModel {
-    
-    enum RowType {
-        case name, date, venue, location
-        
-        var title: String {
-            switch self {
-            case .name:
-                return "Name"
-            case .date:
-                return "Date"
-            case .venue:
-                return "Vanue"
-            case .location:
-                return "Location"
-            }
-        }
-    }
-    
-    struct Row {
-        var value: String
-        var rowType: RowType
-    }
-    
-    weak var delegate: EventDetailViewControllerDelegate?
-    
-    private (set) var items: [Row] = []
     
     private let favoritesRepository: FavoritesRepositoryProtocol
     
-    private var event: Event?
+    private(set) var event: Event?
     
     init(
         favoritesRepository: FavoritesRepositoryProtocol = DependencyContainer.shared.resolve(type: FavoritesRepositoryProtocol.self)!
@@ -49,26 +19,8 @@ class EventDetailViewModel {
         self.favoritesRepository = favoritesRepository
     }
     
-    func setData(for event: Event) {
+    func setEvent(_ event: Event) {
         self.event = event
-        
-        items = [
-            .init(value: event.name, rowType: .name)
-        ]
-        
-        if let formattedDate = event.formattedDate {
-            items.append(.init(value: formattedDate, rowType: .date))
-        }
-        
-        if let venueName = event.venueName {
-            items.append(.init(value: venueName, rowType: .venue))
-        }
-        
-        if let location = event.location {
-            items.append(.init(value: location, rowType: .location))
-        }
-        
-        delegate?.didSetData()
     }
     
     func toggleFavorite() {
@@ -77,8 +29,6 @@ class EventDetailViewModel {
         }
         
         favoritesRepository.toggleFavoriteStatus(forEventWithId: eventId)
-        
-        delegate?.didSetData()
     }
     
     func isEventFavorited() -> Bool {

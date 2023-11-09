@@ -31,7 +31,9 @@ class AppCoordinator {
         let detailViewController = EventDetailViewController()
         
         detailViewController.configure(for: event)
-        
-        rootViewController?.pushViewController(detailViewController, animated: true)
+
+        let navigationDetailViewController = UINavigationController(rootViewController: detailViewController)
+        navigationDetailViewController.modalPresentationStyle = .formSheet
+        rootViewController?.present(navigationDetailViewController, animated: true, completion: nil)
     }
 }

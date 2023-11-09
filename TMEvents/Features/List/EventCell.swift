@@ -12,12 +12,12 @@ class EventCell: UITableViewCell {
     private lazy var baseView: UIView = {
         let view = UIView()
         view.backgroundColor = isSelected ? .systemBackground : .secondarySystemBackground
-//        view.layer.cornerRadius = 8.0
-        view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.3
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowRadius = 4.0
+        view.layer.cornerRadius = 8.0
+        view.layer.masksToBounds = true
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        view.layer.shadowRadius = 4.0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -145,12 +145,17 @@ class EventCell: UITableViewCell {
         
         contentView.addSubview(baseView)
         
+        let baseViewWidthConstraint = baseView.widthAnchor.constraint(equalToConstant: 500)
+        baseViewWidthConstraint.priority = UILayoutPriority(999)
+        
         NSLayoutConstraint.activate([
             starImageView.leadingAnchor.constraint(equalTo: eventImageView.leadingAnchor),
             starImageView.topAnchor.constraint(equalTo: eventImageView.topAnchor, constant: 16),
             
-            baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            baseViewWidthConstraint,
+            baseView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            baseView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 8),
+            baseView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
             baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
@@ -199,7 +204,7 @@ extension Event {
         return formattedLocation
     }
     
-    func getBestImage(for sizeClass: UIUserInterfaceSizeClass, preferredRatio: Ratio) -> EventImage? {
+    func getBestImage(for sizeClass: UIUserInterfaceSizeClass, preferredRatio: Ratio?) -> EventImage? {
         let filteredImages = images.filter { image in
             if sizeClass == .regular {
                 return image.url.contains("LANDSCAPE") || image.url.contains("RETINA_LANDSCAPE")
@@ -213,13 +218,15 @@ extension Event {
             let ratio1 = image1.ratio
             let ratio2 = image2.ratio
             
-            if ratio1 == preferredRatio && ratio2 != preferredRatio {
-                return true
-            } else if ratio1 != preferredRatio && ratio2 == preferredRatio {
-                return false
-            } else {
-                return image1.width > image2.width
+            if let preferredRatio = preferredRatio {
+                if ratio1 == preferredRatio && ratio2 != preferredRatio {
+                    return true
+                } else if ratio1 != preferredRatio && ratio2 == preferredRatio {
+                    return false
+                }
             }
+            
+            return image1.width > image2.width
         }
         
         // Return the URL of the best image (if available)
@@ -227,7 +234,13 @@ extension Event {
             return bestImage
         } else {
             // If no images match the preferred criteria, fall back to the first image
-            return images.first
+            let fallbackImage = images.first { $0.fallback }
+            
+            if fallbackImage != nil {
+                return fallbackImage
+            } else {
+                return images.first
+            }
         }
     }
 }
