@@ -32,6 +32,7 @@ TMEvents is an iOS application that interfaces with the Ticketmaster API to prov
 - [x] Repository Unit Tests
 - [x] UI Tests
 - [ ] Localization
+- [ ] Accessibilityity
 - [x] README
 
 ## Features
